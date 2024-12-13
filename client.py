@@ -25,19 +25,19 @@ def connect_to_server():
             print("Conectado ao servidor.")
 
             while True:
-                data = client_socket.recv(1024).decode("utf-8")
+                data = client_socket.recv(4096).decode("utf-8")
                 if not data:
                     break
-                print(data)
 
                 if "Posicione seus navios" in data:
-                    print("Fase de posicionamento.")
+                    # Fase de posicionamento
+                    print("\nFase de posicionamento:")
                     tipos_navios = [
                         ("Cruzador de Mísseis", 5, 1, 5),
-                        ("Porta-Aviões", 4, 1, 4),
-                        ("Contratorpedeiro", 3, 1, 3),
-                        ("Couraçado", 2, 1, 2),
-                        ("Submarino", 1, 1, 1),
+                        ("Porta-Aviões", 4, 0, 4),
+                        ("Contratorpedeiro", 3, 0, 3),
+                        ("Couraçado", 2, 0, 2),
+                        ("Submarino", 1, 0, 1),
                     ]
 
                     navios_disponiveis = [
@@ -84,29 +84,32 @@ def connect_to_server():
                             if not navios_disponiveis:
                                 print("Todos os navios foram posicionados. Informando o servidor...")
                                 client_socket.sendall("ready".encode("utf-8"))
+                                break
 
-                            else:
-                                print("Posições inválidas ou ocupadas. Tente novamente.")
                         except (ValueError, IndexError) as e:
                             print(f"Erro: {e}. Tente novamente.")
 
-                    client_socket.sendall(b"ready")
-                elif "Sua vez" in data:
+                elif "Seu tabuleiro" in data:
+                    # Exibição de tabuleiros durante os turnos
                     limpar_terminal()
-                    connect_to_server.waiting = False  # Reseta o estado de espera
+                    print(data)
+                elif "Sua vez!" in data:
+                    # Jogada do jogador
+                    limpar_terminal()
+                    print(data)
                     print("Seu tabuleiro:")
-                    tabuleiro.exibir()
-                    print("\nAguardando oponente...\n")
-                    jogada = input("Informe sua jogada (ex: A14): ")
+                    print(tabuleiro.exibir_completo())
+                    jogada = input("\nInforme sua jogada (ex: A 14): ")
                     client_socket.sendall(jogada.encode("utf-8"))
-
                 elif "Aguardando sua vez" in data:
-                    if not hasattr(connect_to_server, "waiting") or not connect_to_server.waiting:
-                        print("Aguardando sua vez...")
-                        connect_to_server.waiting = True
-                elif "Você saiu" in data:
-                    print("Você saiu do jogo.")
+                    # Mensagem de espera
+                    limpar_terminal()
+                    print(data)
+                elif "Você saiu" in data or "Você venceu" in data or "Você perdeu" in data:
+                    # Finalização do jogo
+                    print(data)
                     break
+
         except ConnectionRefusedError:
             print("Erro: Não foi possível conectar ao servidor. Verifique se ele está ativo.")
 
