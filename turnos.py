@@ -51,6 +51,13 @@ def executar_turno(jogador, tabuleiro_proprio, tabuleiro_oponente, poderes_dispo
             print("Escolha inválida. Perdeu o turno.")
     except ValueError:
         print("Entrada inválida. Perdeu o turno.")
+
+    # Reimprime os tabuleiros após o turno
+    print("\nTabuleiro do jogador:")
+    tabuleiro_proprio.exibir()
+    print("\nTabuleiro do oponente:")
+    tabuleiro_oponente.exibir()
+
     return "continuar"
 
 
