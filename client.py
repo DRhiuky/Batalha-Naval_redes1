@@ -92,18 +92,20 @@ def connect_to_server():
                 elif "Seu tabuleiro" in data:
                     # Exibição de tabuleiros durante os turnos
                     limpar_terminal()
-                    print(data)
+                    partes = data.split("Tabuleiro do adversário (público):")
+                    if len(partes) == 2:
+                        print("Seu tabuleiro:")
+                        print(partes[0])  # Mostra o tabuleiro completo do jogador
+                        print("\nTabuleiro do adversário (público):")
+                        print(partes[1])  # Mostra apenas os ataques no tabuleiro público
+
                 elif "Sua vez!" in data:
                     # Jogada do jogador
-                    limpar_terminal()
                     print(data)
-                    print("Seu tabuleiro:")
-                    print(tabuleiro.exibir_completo())
                     jogada = input("\nInforme sua jogada (ex: A 14): ")
                     client_socket.sendall(jogada.encode("utf-8"))
                 elif "Aguardando sua vez" in data:
                     # Mensagem de espera
-                    limpar_terminal()
                     print(data)
                 elif "Você saiu" in data or "Você venceu" in data or "Você perdeu" in data:
                     # Finalização do jogo

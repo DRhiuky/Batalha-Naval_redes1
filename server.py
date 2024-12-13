@@ -30,7 +30,7 @@ def handle_turns():
                 conn.sendall(opponent["tabuleiro_publico"].exibir_publico().encode("utf-8"))
 
                 # Solicita a jogada
-                conn.sendall(b"Sua vez! Informe sua jogada (ex: A14) ou 'sair' para encerrar: ")
+                conn.sendall(b"\nSua vez! Informe sua jogada (ex: A14) ou 'sair' para encerrar: ")
                 data = conn.recv(1024).decode("utf-8").strip()
 
                 if data.lower() == "sair":
@@ -43,7 +43,7 @@ def handle_turns():
                 x, y = entrada_para_coordenadas(data)
                 resultado = opponent["tabuleiro"].atacar(x, y)
 
-                # Atualiza o estado público do tabuleiro do adversário
+                # Atualiza os tabuleiros públicos e internos
                 opponent["tabuleiro_publico"].atualizar_com_ataque(x, y, resultado)
 
                 # Envia mensagens sobre o resultado do ataque

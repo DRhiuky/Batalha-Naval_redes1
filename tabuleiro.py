@@ -21,7 +21,6 @@ class Tabuleiro:
             linhas.append(f"{letras[idx]:2} " + " ".join(str(cell) for cell in linha))
         return "\n".join(linhas)
 
-
     def validar_posicao(self, x, y):
         """Valida se uma posição está dentro dos limites do tabuleiro."""
         return 0 <= x < self.tamanho and 0 <= y < self.tamanho
@@ -34,7 +33,7 @@ class Tabuleiro:
         """Posiciona o navio no tabuleiro."""
         if self.verificar_disponibilidade(posicoes):
             for x, y in posicoes:
-                self.matriz[x][y] = navio.numero
+                self.matriz[x][y] = navio.tamanho  # Mostra o tamanho no tabuleiro
             navio.posicionar(posicoes)
             self.navios.append(navio)
         else:
@@ -48,7 +47,6 @@ class Tabuleiro:
             self.matriz[x][y] = "X"
         elif resultado == "agua":
             self.matriz[x][y] = "*"
-
 
     def atualizar_com_ataque(self, x, y, resultado):
         """
