@@ -153,7 +153,7 @@ Optou-se pelo uso do protocolo TCP devido às seguintes razões:
 
 Nota: Apesar de planejados, poderes especiais não foram implementados na versão final devido à complexidade lógica e limitações do ambiente de terminal. O foco foi dado à estabilidade e funcionalidade básica do jogo.
 
-
+---
 
 ### Arquivo: servidor.py
 
@@ -202,7 +202,7 @@ Requisitos mínimos:
 Objetivo:
 Este script é o núcleo do servidor para o jogo de Batalha Naval e deve ser executado antes de iniciar os clientes. Ele centraliza toda a lógica do jogo e comunicação entre os jogadores.
 
-
+---
 
 ### Arquivo: cliente.py 
 
@@ -249,7 +249,7 @@ Requisitos mínimos:
 Objetivo:
 Este script representa o cliente no jogo de Batalha Naval e deve ser executado por cada jogador. Ele permite que o jogador interaja com o servidor para posicionar navios, realizar ataques e acompanhar o progresso do jogo.
 
-
+---
 
 ### Arquivo: tabuleiro.py 
 
@@ -297,7 +297,7 @@ Requisitos mínimos:
 Objetivo:
 Esta classe é fundamental para o funcionamento do jogo, sendo responsável por organizar e exibir o estado do tabuleiro durante todas as fases do jogo: posicionamento, turnos de ataque e verificação de vitória.
 
-
+---
 
 ### Arquivo: navio.py 
 
@@ -335,7 +335,7 @@ Requisitos mínimos:
 Objetivo:
 Esta classe abstrai a lógica e o comportamento de um navio no jogo, permitindo que o estado de cada navio seja rastreado de forma independente. Ela é essencial para gerenciar a interação entre ataques e o estado do tabuleiro.
 
-
+---
 
 ### Arquivo: turnos.py
 
@@ -382,7 +382,7 @@ Requisitos mínimos:
 Objetivo:
 O arquivo centraliza a lógica de execução de turnos e aplicação de efeitos temporários, permitindo uma experiência de jogo organizada e flexível. Ele garante que os jogadores alternem turnos, com suporte para ações avançadas como uso de poderes e gerenciamento de efeitos temporários.
 
-
+---
 
 ### Arquivo: utils.py
 
@@ -418,7 +418,7 @@ Requisitos mínimos:
 Objetivo:
 O arquivo serve como um módulo de utilidades que auxilia na interação com os tabuleiros e na entrada do jogador. Ele abstrai e simplifica tarefas comuns, como conversão de entradas e validação de posições.
 
-
+---
 
 ### Arquivo: poderes.py
 
