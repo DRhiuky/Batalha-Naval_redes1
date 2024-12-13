@@ -155,7 +155,7 @@ Nota: Apesar de planejados, poderes especiais não foram implementados na versã
 
 
 
-####################################### Arquivo: servidor.py #######################################
+### Arquivo: servidor.py
 
 Descrição e funcionalidade:
 
@@ -204,7 +204,7 @@ Este script é o núcleo do servidor para o jogo de Batalha Naval e deve ser exe
 
 
 
-####################################### Arquivo: cliente.py #######################################
+### Arquivo: cliente.py 
 
 Descrição e funcionalidade:
 
@@ -251,7 +251,7 @@ Este script representa o cliente no jogo de Batalha Naval e deve ser executado p
 
 
 
-####################################### Arquivo: tabuleiro.py #######################################
+### Arquivo: tabuleiro.py 
 
 Descrição e funcionalidade:
 
@@ -299,7 +299,7 @@ Esta classe é fundamental para o funcionamento do jogo, sendo responsável por 
 
 
 
-####################################### Arquivo: navio.py #######################################
+### Arquivo: navio.py 
 
 Descrição e funcionalidade:
 
@@ -337,7 +337,7 @@ Esta classe abstrai a lógica e o comportamento de um navio no jogo, permitindo 
 
 
 
-####################################### Arquivo: turnos.py #######################################
+### Arquivo: turnos.py
 
 Descrição e funcionalidade:
 
@@ -384,7 +384,7 @@ O arquivo centraliza a lógica de execução de turnos e aplicação de efeitos 
 
 
 
-####################################### Arquivo: utils.py #######################################
+### Arquivo: utils.py
 
 Descrição e funcionalidade:
 
@@ -420,7 +420,7 @@ O arquivo serve como um módulo de utilidades que auxilia na interação com os 
 
 
 
-####################################### Arquivo: poderes.py #######################################
+### Arquivo: poderes.py
 
 Descrição e funcionalidade:
 
