@@ -24,50 +24,48 @@ def handle_turns():
 
             try:
                 # Atualiza e envia o estado dos tabuleiros
-                conn.sendall(b"\nSeu tabuleiro (completo):\n")
-                conn.sendall(player["tabuleiro"].exibir_completo().encode("utf-8"))
-                conn.sendall(b"\nTabuleiro do adversario (publico):\n")
-                conn.sendall(opponent["tabuleiro_publico"].exibir_publico().encode("utf-8"))
+                conn.sendall("\nSeu tabuleiro:\n".encode("utf-8"))
+                conn.sendall(player["tabuleiro"].formatar_para_envio().encode("utf-8"))
+                conn.sendall("\nTabuleiro do adversário (público):\n".encode("utf-8"))
+                conn.sendall(opponent["tabuleiro_publico"].formatar_para_envio().encode("utf-8"))
 
                 # Solicita a jogada
-                conn.sendall(b"\nSua vez! Informe sua jogada (ex: A14) ou 'sair' para encerrar: ")
+                conn.sendall(b"Sua vez! Informe sua jogada (ex: A14) ou 'sair' para encerrar: ")
                 data = conn.recv(1024).decode("utf-8").strip()
 
                 if data.lower() == "sair":
                     print(f"Jogador {player_id} saiu.")
-                    conn.sendall(b"Voce saiu do jogo.\n")
-                    opponent["conn"].sendall(b"O oponente saiu. Voce venceu!\n")
-                    return
+                    conn.sendall("Você saiu do jogo.\n".encode("utf-8"))
+                    opponent["conn"].sendall("O oponente saiu. Voce venceu!\n".encode("utf-8"))
+                    return  # Encerra o jogo
 
                 # Processa o ataque
                 x, y = entrada_para_coordenadas(data)
                 resultado = opponent["tabuleiro"].atacar(x, y)
 
-                # Atualiza os tabuleiros públicos e internos
-                opponent["tabuleiro_publico"].atualizar_com_ataque(x, y, resultado)
-
-                # Envia mensagens sobre o resultado do ataque
                 if resultado == "acerto":
                     conn.sendall("ACERTOU! Você atingiu um navio.\n".encode("utf-8"))
                     opponent["conn"].sendall(f"Oponente atacou {data}: ACERTOU!\n".encode("utf-8"))
                 elif resultado == "afundado":
-                    conn.sendall(b"ACERTOU! Voce afundou um navio.\n")
+                    conn.sendall("ACERTOU! Você afundou um navio.\n".encode("utf-8"))
                     opponent["conn"].sendall(f"Oponente atacou {data}: ACERTOU e AFUNDOU um navio!\n".encode("utf-8"))
                 else:  # "agua"
-                    conn.sendall(b"AGUA! Voce nao atingiu nada.\n")
+                    conn.sendall("ÁGUA! Você não atingiu nada.\n".encode("utf-8"))
                     opponent["conn"].sendall(f"Oponente atacou {data}: ÁGUA!\n".encode("utf-8"))
+
+                # Atualiza os tabuleiros públicos
+                opponent["tabuleiro_publico"].atualizar_com_ataque(x, y, resultado)
 
                 # Verifica a condição de vitória
                 if opponent["tabuleiro"].todos_afundados():
                     conn.sendall("Parabéns! Você venceu.\n".encode("utf-8"))
-                    opponent["conn"].sendall(b"Voce perdeu. Todos os seus navios foram afundados.\n")
-                    return
+                    opponent["conn"].sendall("Você perdeu. Todos os seus navios foram afundados.\n".encode("utf-8"))
+                    return  # Encerra o jogo
 
             except Exception as e:
                 print(f"Erro ao processar turno do jogador {player_id}: {e}")
                 conn.sendall(b"Erro ao processar sua jogada. Tente novamente.\n")
-
-
+                continue
 
 def handle_player(conn, addr, player_id):
     """

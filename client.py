@@ -111,6 +111,9 @@ def connect_to_server():
                     # Finalização do jogo
                     print(data)
                     break
+                elif "O oponente saiu" in data:
+                    print("\nO jogo foi encerrado. O oponente saiu.")
+                    break
 
         except ConnectionRefusedError:
             print("Erro: Não foi possível conectar ao servidor. Verifique se ele está ativo.")
